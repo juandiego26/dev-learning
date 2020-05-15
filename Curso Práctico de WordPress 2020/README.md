@@ -4,6 +4,8 @@
 
 ## Tabla de contenido
 
+
+
 - [Introducción](#introducción)
 - [Themes](#themes)
 - [hooks en WordPress](#hooks)
@@ -31,11 +33,13 @@
 
 ## Introducción
 
+
+
 WordPress es un sistema de gestión de contenido **CMS** (Content Management System). desarrollado en **PHP** y adaptado para funcionar en entornos que utilizan los sistemas de gestión de bases de datos **MySQL**.
 
-
-
 ## Themes
+
+
 
 Son la estructura de archivos la cual va a generar las vistas dentro de nuestro navegador. Estos archivos toman la información de la base de datos MySQL y genera el código HTML que se envía al navegador.
 
@@ -68,13 +72,15 @@ Es la imagen de referencia que vamos a tener en nuestro administrador a la hora 
 Es la vista que carga por defecto como para entradas, cuando no se le especifica una concreta.
 Todos estos archivos son importantes porque es lo que va a dar dinamismo al diseño de nuestro sitio. Si nosotros no generamos todos estos archivos, entonces, todo nuestro contenido se va a ver igual que el archivo index.php
 
-
-
 ## Hooks
+
+
 
 Son funciones de WordPress que nos van a permitir agregar código propio al código fuente de WordPress
 
 ### Tipos de Hooks
+
+
 
 **Action**: Nos permite ejecutar una función personalizada en un punto específico del código de Wordpress.
 
@@ -98,12 +104,16 @@ https://developer.wordpress.org/reference/functions/add_action/
 
 **Filter**: Nos permite ejecutar una función personalizada en un determinado punto, pero la función que usemos tendrá un parámetro de entrada y dentro de nuestra función haremos modificadores al parámetro y finalmente lo retornaremos modificado.
 
+
+
 <div align="center">
   <img src="img/add_filter.png">
   <small><p>Hook add_action</p></small>
 </div>
 
 Forma de ejecutar una hook `add_filter`
+
+
 
 ```php
 <?php
@@ -117,63 +127,67 @@ add_filter('the_title', 'upperTitle'); // add_filter($hook, $function)
 
 https://developer.wordpress.org/reference/functions/add_filter/
 
-
-
 ## Manejo de librerías
+
+
 
 Para cada tipo de archivo vamos a usar una función diferente.
 
 ### CSS
 
+
+
 para las librerías CSS vamos a usar dos funciones:
 
-**1. `wp_register_style()`**:  Esta función es la encargada de **registrar** la librería y que la tengamos a disposición como una dependencia pero no las va a ejecutar en nuestro HTML.
+**1. `wp_register_style()`**: Esta función es la encargada de **registrar** la librería y que la tengamos a disposición como una dependencia pero no las va a ejecutar en nuestro HTML.
 
-   **Argumentos**
+**Argumentos**
 
-   - `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
-   - `$src string|bool`: el source que puede ser un string o un boleano
-   - `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente. 
-   - `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
-   - `$media = 'all' string`: el media nos va a permitir que nuestro CSS se pueda ejecutar en todos lados o en una resolución en específico.
+- `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
+- `$src string|bool`: el source que puede ser un string o un boleano
+- `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente.
+- `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
+- `$media = 'all' string`: el media nos va a permitir que nuestro CSS se pueda ejecutar en todos lados o en una resolución en específico.
 
 **2. `wp_enqueue_style()`**: Esta función va a **ejecutar** la librería que nosotros le digamos pero va a llamar las referencias si se necesita de alguna.
 
-   **Argumentos** recibe los mismos argumentos pero en vez de registrarlo y dejarlo a disposición es ejecutarlo directamente en nuestro HTML
+**Argumentos** recibe los mismos argumentos pero en vez de registrarlo y dejarlo a disposición es ejecutarlo directamente en nuestro HTML
 
-   - `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
-   - `$src string|bool`: el source que puede ser un string o un boleano
-   - `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente. 
-   - `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
-   - `$media = 'all' string`: el media nos va a permitir que nuestro CSS se pueda ejecutar en todos lados o en una resolución en específico.
+- `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
+- `$src string|bool`: el source que puede ser un string o un boleano
+- `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente.
+- `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
+- `$media = 'all' string`: el media nos va a permitir que nuestro CSS se pueda ejecutar en todos lados o en una resolución en específico.
 
 ### JavaScript
 
+
+
 para las librerías JS vamos a usar dos funciones:
 
-**1. `wp_register_script()`**:  Esta función es la encargada de **registrar** la librería y que la tengamos a disposición como una dependencia pero no las va a ejecutar en nuestro HTML.
+**1. `wp_register_script()`**: Esta función es la encargada de **registrar** la librería y que la tengamos a disposición como una dependencia pero no las va a ejecutar en nuestro HTML.
 
-   **Argumentos**
+**Argumentos**
 
-   - `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
-   - `$src string|bool`: el source que puede ser un string o un boleano
-   - `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente. 
-   - `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
-   - `$in_footer = false bool`: Para decirle que se ejecute en el footer o se ejecute en el header.
+- `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
+- `$src string|bool`: el source que puede ser un string o un boleano
+- `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente.
+- `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
+- `$in_footer = false bool`: Para decirle que se ejecute en el footer o se ejecute en el header.
 
 **2. `wp_enqueue_script()`**: Esta función va a **ejecutar** la librería que nosotros le digamos pero va a llamar las referencias si se necesita de alguna.
 
-   **Argumentos** recibe los mismos argumentos pero en vez de registrarlo y dejarlo a disposición es ejecutarlo directamente en nuestro HTML
+**Argumentos** recibe los mismos argumentos pero en vez de registrarlo y dejarlo a disposición es ejecutarlo directamente en nuestro HTML
 
-   - `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
-   - `$src string|bool`: el source que puede ser un string o un boleano
-   - `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente. 
-   - `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
-   - `$in_footer = false bool`: Para decirle que se ejecute en el footer o se ejecute en el header.
-
-
+- `$handle string`: el nombre de nuestra librería para WordPress string que puede ser cualquiera
+- `$src string|bool`: el source que puede ser un string o un boleano
+- `$deps = array() array`: Las dependencias van a ser un array de strings los nombres o los handles que fuimos registrando previamente.
+- `$ver = string|bool|null`: la versión es importante por si tenemos una versión de caché para poder decirle a nuestro navegador que nos regenere nuestro pedido en caso de que se creara modificaciones.
+- `$in_footer = false bool`: Para decirle que se ejecute en el footer o se ejecute en el header.
 
 ## Creando un Theme
+
+
 
 Buscamos la carpeta de nuestro Theme en:
 
@@ -183,6 +197,8 @@ Buscamos la carpeta de nuestro Theme en:
 
 creamos el archivo obligatorio `index.php` este archivo que es la vista por defecto de cualquier vista que no este asignada.
 
+
+
 `index.php`
 
 ```php
@@ -190,7 +206,7 @@ creamos el archivo obligatorio `index.php` este archivo que es la vista por defe
   <?php get_footer(); ?> // con esta función llamamos al footer.php
 ```
 
- creamos el archivo `style.css`
+creamos el archivo `style.css`
 
 ```css
 /*
@@ -204,8 +220,63 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing-page, bootstrap, custom-template, responsive.
 */
 
-a,h1,h2,h3,h4,li,p,span,ul{font-family:Montserrat}.attachment-large{max-width:100%;height:auto!important}h1{margin:50px 0;font-weight: 900;}ul{margin-bottom: 0px;}header{background-color:#1c3643}header nav li{list-style:none;display:inline-block;padding:0 15px}header nav li a{color:#fff;text-transform:uppercase}header nav li a:hover{color:#fff}footer{background-color:#1c3643;padding:10px 0}footer{color:white}footer p{margin:0;color:#fff}.lista-productos h2{font-weight:900}.lista-productos h4{font-weight:400}.lista-productos h4 a{color:#000}
-
+a,
+h1,
+h2,
+h3,
+h4,
+li,
+p,
+span,
+ul {
+  font-family: Montserrat;
+}
+.attachment-large {
+  max-width: 100%;
+  height: auto !important;
+}
+h1 {
+  margin: 50px 0;
+  font-weight: 900;
+}
+ul {
+  margin-bottom: 0px;
+}
+header {
+  background-color: #1c3643;
+}
+header nav li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 15px;
+}
+header nav li a {
+  color: #fff;
+  text-transform: uppercase;
+}
+header nav li a:hover {
+  color: #fff;
+}
+footer {
+  background-color: #1c3643;
+  padding: 10px 0;
+}
+footer {
+  color: white;
+}
+footer p {
+  margin: 0;
+  color: #fff;
+}
+.lista-productos h2 {
+  font-weight: 900;
+}
+.lista-productos h4 {
+  font-weight: 400;
+}
+.lista-productos h4 a {
+  color: #000;
+}
 ```
 
 Creamos el archivo `header.php`
@@ -213,16 +284,18 @@ Creamos el archivo `header.php`
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php wp_head();  ?> // trae todas las funciones o código propio que hagan referencia al hook get_header() donde estaba el title
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php wp_head();  ?>
+    // trae todas las funciones o código propio que hagan referencia al hook
+    get_header() donde estaba el title
+  </head>
+  <body></body>
+</html>
 ```
-https://developer.wordpress.org/reference/functions/wp_head/
 
+https://developer.wordpress.org/reference/functions/wp_head/
 
 creamos el archivo `footer.php`
 
@@ -235,7 +308,7 @@ creamos el archivo `footer.php`
 Creamos el archivo archivo `functions.php` para agregar funciones de soporte a nuestro theme. Todas las funciones o código propio lo agregamos en functions php.
 
 ```php
-<?php 
+<?php
 
 function init_template() { // el nombre es asignado por nosotros
   add_theme_support('post-thumbnails'); // función que nos permite que dentro de todas nuestras entradas y páginas podamos usar una imagen destacada
@@ -244,6 +317,7 @@ function init_template() { // el nombre es asignado por nosotros
 
 add_action('after_septup_theme', 'init_template') // hook add_action para que se ejecute la función
 ```
+
 https://developer.wordpress.org/reference/functions/add_theme_support/
 
 Creamos el archivo `screenshot.png` con una resolución 880x660
@@ -252,10 +326,12 @@ Creamos el archivo `screenshot.png` con una resolución 880x660
 
 ## Uso de librerías css en el Theme
 
+
+
 - Creamos una función para registrar Bootstrap y dejarlo como dependencia en `functions.php`
 
 ```php
-<?php 
+<?php
 
 // function init template
 
@@ -272,7 +348,7 @@ function assets() {
   wp_register_style('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', '', '4.4.1', 'all');
   wp_register_style('montserrat', 'https://fonts.googleapis.com/css?family=Montserrat&display=swap','','1.0', 'all');
   // ejecutamos el style.css
-  /* 
+  /*
     la función get_stylesheet_uri() nos la provee wordpress y lo que hace es retornar
     la direccíon exacta donde se encuentra nuestro archivo style.css.
     array con las dependencias que se carguen antes de nuestros estilos
@@ -283,11 +359,12 @@ function assets() {
 add_action('wp_enque_scripts', 'assets'); // para que se ejecute la función
 ```
 
-
 ## Uso de librerías JS en el Theme
 
+
+
 ```php
-<?php 
+<?php
 
 // function init template
 
@@ -313,8 +390,8 @@ wp_enqueue_script('boostrapjs', 'https://stackpath.bootstrapcdn.com/bootstrap/4.
 // wordpress carga automaticamente el JQuery con 'jquery'
 
 // ejecutamos el archivo custom.js
-/* 
-  Lo llamamos de forma dinámica con una función get_template_directory_uri(); para que cada 
+/*
+  Lo llamamos de forma dinámica con una función get_template_directory_uri(); para que cada
   vez que nuestro archivo se encuentre en una URL diferente no tenga ningun tipo de problema
   para ser llamado concatenado con un string de la ubicación.
 */
@@ -325,41 +402,45 @@ add_action('wp_enqueue_scripts', 'assets');
 
 ```
 
-
-
 Por último colocamos un logo en el archivo `header.php`
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php wp_head();  ?> // trae todas las funciones o código propio que hagan referencia al hook get_header() donde estaba el title
-</head>
-<body>
-  <header>
-    <div class="container">
-      <div class="row">
-        <div class=col-4>
-          <img src="<?php echo get_template_directory_uri() ?>/assets/img/logo.png" alt="logo"> 
-          <!-- funcion get_template_uri() para saber donde se encuentra el template de wordpress
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php wp_head();  ?>
+    // trae todas las funciones o código propio que hagan referencia al hook
+    get_header() donde estaba el title
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <img
+              src="<?php echo get_template_directory_uri() ?>/assets/img/logo.png"
+              alt="logo"
+            />
+            <!-- funcion get_template_uri() para saber donde se encuentra el template de wordpress
           con echo retorna no imprime-->
+          </div>
         </div>
       </div>
-    </div>
-  </header>
-
+    </header>
+  </body>
+</html>
 ```
 
-
-
 ## Crear un Menú
+
+
 
 En el archivo `functions.php` registramos una localización; es decir, donde el administrador de Wordpress pueda insertar un menú. Para eso usamos una función `register_nav_menus()`
 
 ```php
-<?php 
+<?php
 
 // function init template
 
@@ -368,7 +449,7 @@ function init_template() {
   add_theme_support('title-tag');
 
   // registramos el menú
-  /* 
+  /*
     el primer argumento es un array y el primera propiedad del array es una referencia 'top-menu'
     con valor una descripción 'Menú Principal'
   */
@@ -392,68 +473,71 @@ function assets() {
 add_action('wp_enqueue_scripts', 'assets');
 
 ```
+
 En el administrador creamos un nuevo menú y lo llamamos Menú Principal
 
 https://developer.wordpress.org/reference/functions/register_nav_menus/
 
-
 Para imprimir el menú nos vamos al archivo `header.php`
+
+
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php wp_head();  ?> // trae todas las funciones o código propio que hagan referencia al hook get_header() donde estaba el title
-</head>
-<body>
-  <header>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class=col-4>
-          <img src="<?php echo get_template_directory_uri() ?>/assets/img/logo.png" alt="logo"> 
-          <!-- funcion get_template_uri() para saber donde se encuentra el template de wordpress
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php wp_head();  ?>
+    // trae todas las funciones o código propio que hagan referencia al hook
+    get_header() donde estaba el title
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <img
+              src="<?php echo get_template_directory_uri() ?>/assets/img/logo.png"
+              alt="logo"
+            />
+            <!-- funcion get_template_uri() para saber donde se encuentra el template de wordpress
           con echo retorna no imprime-->
-        </div>
-        <div class="col-8">
-          <nav>
-            <!-- wp_nav_menu(); nos permite imprimir el menú 
+          </div>
+          <div class="col-8">
+            <nav>
+              <!-- wp_nav_menu(); nos permite imprimir el menú 
             recibe como argumento un array() con varios valores
             1- localización del menú dentro del admin de wordpress
             2- es una clase para nuestros estilos del menú
             3- una clase al contenedor
             -->
-            <?php wp_nav_menu(
+              <?php wp_nav_menu(
               array(
-                'theme_location' => 'top-menu',
-                'menu_class' => 'menu-principal',
-                'container_class' => 'container_menu'
-              )
-            ); ?>
-          </nav>
+                'theme_location' =>
+              'top-menu', 'menu_class' => 'menu-principal', 'container_class' =>
+              'container_menu' ) ); ?>
+            </nav>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
-
+    </header>
+  </body>
+</html>
 ```
 
 https://developer.wordpress.org/reference/functions/wp_nav_menu/
 
-
-
 ## Widgets
+
+
 
 Es un componente que se puede colocar en diferentes zonas, como por ejemplo, la barra lateral o un pie de página.
 
-
 En el archivo `functions.php` creamos una función que se llama `sidebar()`
 
-
-
 ```php
-<?php 
+<?php
 
 // function init template
 function init_template() {
@@ -481,8 +565,8 @@ add_action('wp_enqueue_scripts', 'assets');
 
 function sidebar() {
   // función de wordpress llamada register_sidebar
-  /* 
-    recibe como argumento un array con las siguientes propiedades 
+  /*
+    recibe como argumento un array con las siguientes propiedades
     1- name: El nombre es pie de pagina porque lo queremos agregar en nuestro footer
     2- id: para que lo renderize dentro del html.
     3- description: como aparece en el admin de wordpress
@@ -492,7 +576,7 @@ function sidebar() {
     7- after_widget: cerramos el </div>
 
   */
-  
+
   register_sidebar(
     array(
       'name' => 'Pie de pagina',
@@ -510,10 +594,11 @@ add_action('widgets_init', 'sidebar' );
 
 ```
 
+
+
 WordPress en los hooks para los módulos que sean plural como por ejemplo widgets o menús usa el plural y `wp_head` y `wp_footer()` va a ser en singular.
 
 https://developer.wordpress.org/reference/functions/register_sidebar/
-
 
 para imprimirlo nos vamos al archivo `footer.php`
 
@@ -528,9 +613,9 @@ para imprimirlo nos vamos al archivo `footer.php`
 </html>
 ```
 
-
-
 ## Post Types
+
+
 
 WordPress tiene muchos tipos diferentes de contenido, a cada uno de estos tipos se le llama **Post Type (Tipo de Contenido)**
 
@@ -543,10 +628,9 @@ Podemos encontrar dentro del admin de Wordpress:
 
 En el momento en que nosotros necesitemos generar un tipo de contenido que no esté contemplado por Wordpress vamos a generar un Post Type personalizado o **Custom Post Type** Esto sería por ejemplo si tenemos un sitio de una biblioteca y necesitemos mostrar libros podemos crear el custom post type y asignar las características que necesitan estos post type libros.
 
-
-
-
 ## Los Loops
+
+
 
 Un Loop en WordPress es una herramienta que nos permite mostrar el contenido que tenemos guardado en nuestro administrador.
 
@@ -563,12 +647,11 @@ Exiten dos tipos de Loops
 
 **- Personalizado**: Que es utilizando el objeto `WP_Query` de wordpress el cual podemos decirle específicamente que datos queremos retornar, por ejemplo si queremos las entradas de una fecha en especifico o si queremos un custom post type.
 
-
-
 ## Crear un Page.php para Páginas
 
-Inicializamos nuestras vistas para las paginas páginas
 
+
+Inicializamos nuestras vistas para las paginas páginas
 
 En el admin de Wodpress vamos a **paginas** y añadimos una pagina nueva le ponemos un titulo y agregamos un bloque de texto que diga **Cualquier cosa**. La publicamos y vemos que no muestra nada, para ello vamos al editor de código y creamos una página llamada `page.php`
 
@@ -577,7 +660,7 @@ En el admin de Wodpress vamos a **paginas** y añadimos una pagina nueva le pone
 ```php
 <?php get_header(); ?> // cargamos el header
 
-/* 
+/*
   En este caso como es un loop por defecto que es mostrar el contenido de una página
   usamos el loop básico
 
@@ -595,8 +678,8 @@ En el admin de Wodpress vamos a **paginas** y añadimos una pagina nueva le pone
 <main class='container'>
     <?php if(have_posts()){ // Loop básico
             while(have_posts()){ // while para instanciar el contenido de nuestra page
-                the_post(); ?>
-            <h1 class='my-3'><?php the_title(); ?></h1> // traemos el title con HTML 
+              the_post(); ?>
+            <h1 class='my-3'><?php the_title(); ?></h1> // traemos el title con HTML
 
             <?php the_content(); ?> // función para mostrar el contenido
 
@@ -611,11 +694,7 @@ Para entender el funcionamiento de la función `have_post()`
 
 https://developer.wordpress.org/reference/functions/have_posts/
 
-
 https://developer.wordpress.org/reference/functions/the_post/
-
-
-
 
 ## Crar un Single.php para las Entradas
 
@@ -626,7 +705,7 @@ Creamos la vista para nuestras entradas o posts para ello utilizamos el archivo 
 ```php
 <?php get_header(); ?> // cargamos el header
 
-/* 
+/*
   Ejecutamos un loop básico al igual que page.php
 
   Preguntamos si hay Post con la función have_post() hace que si todavía queda contenido para
@@ -643,7 +722,7 @@ Creamos la vista para nuestras entradas o posts para ello utilizamos el archivo 
 <main class='container my-3'>
     <?php if(have_posts()){ // Loop básico
             while(have_posts()){ // while para instanciar el contenido de nuestra page
-                the_post(); 
+              the_post();
             ?>
             <h1 class="my-3">
               <?php the_title();?> // para imprimir el titulo
@@ -665,18 +744,21 @@ Creamos la vista para nuestras entradas o posts para ello utilizamos el archivo 
 
 https://developer.wordpress.org/reference/functions/the_post_thumbnail/
 
-
-
-
 ## Crear una página principal con front-page.php
+
+
 
 Vamos al admin de Wordpress y creamos una pagina nueva le llamamos `[nombre-pagina]` y le ponemos una imagen de portada añadiendo un bloque nuevo el bloque de imagen en gutenberg de Wordpress.
 
 Ahora vamos a ajustes de lectura en el wordpress y elegimos una página estática para la portada, es decir, portada va a ser nuestra página principal
 
-Ahora creamos la vista con el archivo `front-page.php` 
+Ahora creamos la vista con el archivo `front-page.php`
+
+
 
 `front-page.php`
+
+
 
 ```php
 <?php get_header(); ?> // agregamos el encabezado
@@ -694,14 +776,14 @@ Ahora creamos la vista con el archivo `front-page.php`
 <?php get_footer(); ?>
 ```
 
-
-
 ## Generar un Post Type
+
+
 
 Vamos al archivo `functions.php` y creamos una función `productos_type()`
 
 ```php
-<?php 
+<?php
 
 // function init template
 function init_template() {
@@ -747,12 +829,12 @@ add_action('widgets_init', 'sidebar' );
 
 function productos_type(){
   // la función register_post_type() para crear nuestor custom post type
-  // recibe dos argumetos 
+  // recibe dos argumetos
   // 1. el nombre de nuestro post type 'producto' en singular
   // 2. $args todas las configuraciones que queremos recibir en nuestro post type
   // $args es un array de datos
 
-  $labels = array( // labels 
+  $labels = array( // labels
         'name' => 'Productos', // nombre en la sesión de productos
         'singular_name' => 'Producto', // el mensaje en el admin este en singular
         'manu_name' => 'Productos', // el nombre en el menú del administrador
@@ -776,7 +858,7 @@ function productos_type(){
         'rewrite'       => true, // esto lo que hace es que nuestro post type tenga una url asignada
         'show_in_rest' => true // que nuestros datos pertenezca a la API de wordpress
 
-    );    
+    );
     register_post_type('producto', $args);
 }
 
@@ -787,7 +869,6 @@ add_action('init', 'productos_type');
 url del custom posts type `localhost/platzigifts/producto/tazas`
 
 https://developer.wordpress.org/reference/functions/register_post_type/
-
 
 Para los tipos de labels
 
@@ -801,16 +882,13 @@ para los dashicons
 
 https://developer.wordpress.org/resource/dashicons/#wordpress
 
-
 Debemos refrescar nuestros enlaces permanentes.
-
-
-
 
 ## Personalizar el Loop para la página principal
 
-Vamos a al archivo `front-page.php`
 
+
+Vamos a al archivo `front-page.php`
 
 ```php
 <?php get_header(); ?> // agregamos el encabezado
@@ -856,14 +934,17 @@ Vamos a al archivo `front-page.php`
             </div>
         <?php
             }
-          } 
+          }
         ?>
       </div>
     </div>
 </main>
 
 <?php get_footer(); ?>
+
 ```
+
+
 
 Para crear un loop personalizado
 
@@ -881,21 +962,37 @@ https://wordpress.stackexchange.com/questions/50995/internal-links-to-pages-in-p
 
 https://stackoverflow.com/questions/50201252/how-to-add-php-code-in-href-attribute-in-wp-page-content
 
+**Pregunta**
+Si por ejemplo, se tiene un link en cualquier section de la página que me lleve a una página de agradecimiento por haber descargado un tipo de software de prueba.
+
+Cómo hago para poner en el atributo `href` código PHP para la url de esa pagina; ya que, el link de la página de agradecimiento no va a estar en el menú?
+
+**Respuesta**
+Si necesitas un link específico de una página creada desde WordPress se puede traer usando la función `get_permalink()` está función va a recibir como parámetro el ID de la página de la cual necesitamos el link. Por ejemplo, queremos crear un link a la página de agradecimiento. Lo primero que tenemos que hacer es conseguir el ID de esa página, entonces tenes que ir al administrador, páginas, entrar a la página de agradecimiento y en el URL del navegador vas a ver esto:
+
+`miweb.com/wp-admin/post.php?post=253&action=edit`
+
+El valor de post, este caso 253 es el ID que estás buscando. Ya teniendo este dato solo tenes que crear el link de esta forma.
+
+`<a href='<?php echo get_permalink(253)?>' >Agradecimiento</a>`
+Tenemos que usar el echo en este caso porque a diferencia de `the_permalink()` esta función solo trae el dato, no lo imprime.
+
 ## Plugins
 
- Los plugin son componentes que nos van a ayudar a la ampliación de nuestras funcionalidades:
-
- **recomendaciones a la hora de elegir un plugin**
-
- - **Compatibilidad**: Verificar que el plugin es compatible con nuestra versión de WordPress
- - **Calificación**:Verificar la calificación del plugin y los comentarios.
- - **Mantenimiento**: Verificar si la última actualización fue hace mucho tiempo.
- - **Funcionalidad**: Verificar que el plugin no tenga demasiadas funcionalidades a las que realmente necesitemos. 
 
 
+Los plugin son componentes que nos van a ayudar a la ampliación de nuestras funcionalidades:
 
+**recomendaciones a la hora de elegir un plugin**
+
+- **Compatibilidad**: Verificar que el plugin es compatible con nuestra versión de WordPress
+- **Calificación**:Verificar la calificación del plugin y los comentarios.
+- **Mantenimiento**: Verificar si la última actualización fue hace mucho tiempo.
+- **Funcionalidad**: Verificar que el plugin no tenga demasiadas funcionalidades a las que realmente necesitemos.
 
 ## Creando un plugin
+
+
 
 Crearemos un plugin que haga que la vista de nuestro tema se vea en modo oscuro.
 Vamos a ruta `wp-content/plugins/[nombre-plugin]`
@@ -923,38 +1020,41 @@ add_action('wp_enqueue_scripts', 'estilos_plugin');
 
 ```
 
-
-
 Creamos una carpeta `assets/css/estilo.css`
 
 ```css
-
 body {
   background-color: black !important;
 }
 
-p, span, h1, h2, h3, h4, a {
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+a {
   color: white !important;
 }
 ```
 
-
 **Notas personales**
 
-Pregunta: Por que aquí usamos directamente `wp_enqueue_style` y no se usó primero `wp_register_style` 
+Pregunta: Por que aquí usamos directamente `wp_enqueue_style` y no se usó primero `wp_register_style`
 
 En este caso se usó el `enqueue` porque es el único archivo que se va a cargar en el plugin. Si este archivo fuera necesario para que otro funcione, se hubiese cargado con un `register`.
 
 https://developer.wordpress.org/reference/functions/plugin_dir_url/
 
-
-
-
 ## Creando página 404
 
-El archivo `404.php` Es importante porque cuando un usuario entre a una pagina que no exista por defecto va a tomar la vista del `index.php` y no va a entender que está perdido o que está en una página 404. 
+
+
+El archivo `404.php` Es importante porque cuando un usuario entre a una pagina que no exista por defecto va a tomar la vista del `index.php` y no va a entender que está perdido o que está en una página 404.
 
 `404.php`
+
+
 
 ```php
 <?php get_header() ?>
